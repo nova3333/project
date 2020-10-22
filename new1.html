@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<link rel="stylesheet" href="FIRST1.css">
+
+</head>
+<body>
+
+
+<div class="right">
+<img src="title.png" alt="alternatetext" style="width:600px;height:140px;">
+
+
+</div>
+
+<div class="rectangle">
+<svg width="600" height="700">
+  <rect width="600" height="700" style="fill:rgb(255, 255, 255);stroke-width:3;stroke:rgb(0,0,0)" />
+   
+</svg>
+</div>
+
+
+
+<div class="Email" >
+<input type="email" placeholder="Email" id="email"/>
+            
+</div>
+
+<div class="PassWord">
+<input type="password" placeholder="Password" id="password"/>
+</div>
+
+
+<div class="LogIn">
+<button onclick="signIn()" id="signIn" > Log In</button> 
+</div>
+<div class="rightLogin">
+                      
+        
+		   <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+		 <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
+		 <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
+		<script src="form.js"></script>
+</div>
+
+<div class="Signin">
+<p style="font-size:70px;"> Sign in </p>
+
+</div>
+
+<div class="SignUpText">
+<p style="font-size:25px;"> Don't have an account? Click Sign up below to create one </p>
+</div>
+
+<div class="SignUp">
+<button  onclick="signUp()" id="signUp">Sign Up </button>
+</div>
+
+<div class="LogOut">
+<button onclick="signOut()" id="signOut">Log Out</button>
+</div>
+
+
+</body>
+</html>
