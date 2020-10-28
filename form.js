@@ -69,8 +69,7 @@
 			
 			var email = user.email;
 			alert("Active User " + email);
-			
-			window.location.href="home.html";    
+			window.location.href="home.html";
 			//Take user to a different or home page
 
 			//is signed in

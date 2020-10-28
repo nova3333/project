@@ -89,9 +89,8 @@
   
 }
 
-
-body{height:60%;
-   width:60%;
+body{height:100%;
+   width:100%;
    background-image: url("shades-of-grey-mountains-shams.jpg");  
    background-repeat:no-repeat; 
    background-size:cover; 
@@ -99,3 +98,5 @@ body{height:60%;
    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='.image.jpg',sizingMethod='scale');
    -ms-filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(src='image.jpg',sizingMethod='scale')";
 }
+
+
