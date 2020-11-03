@@ -6,6 +6,15 @@ ul {
   background-color: #333;
 }
 
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 30px;
+  text-decoration: none;
+  font-size:15px;
+}
+
 li {
   float: left;
 }
@@ -20,17 +29,16 @@ body{height:100%;
    -ms-filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(src='image.jpg',sizingMethod='scale')";
 }
 
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 30px;
-  text-decoration: none;
-  font-size:15px;
+
+
+
+.LogOut{
+  
+  position: absolute;
+  top: 70px;
+  left: 1675px;
+  
 }
-
-
-
 
 li:last-child {
   border-right: none;
