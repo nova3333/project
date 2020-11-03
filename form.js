@@ -83,7 +83,7 @@
 			
 		}else{
 			
-			alert("No Active User");
+			
 			//no user is signed in
 		}
 		
