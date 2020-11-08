@@ -30,7 +30,8 @@
 var storage = firebase.storage();
 var storageRef = Storage.ref();
 
-var listRef = storageRef.child('gs://testproject-e2e7b.appspot.com/Bellevue Project/documents/);	
+var listRef = storageRef.child('gs://testproject-e2e7b.appspot.com/Bellevue Project/documents/);
+function myfunction(){	
 listRef.listAll().then(function(res) {
   res.prefixes.forEach(function(folderRef) {
     // All the prefixes under listRef.
@@ -43,4 +44,4 @@ listRef.listAll().then(function(res) {
   // Uh-oh, an error occurred!
 });
 
-
+}
