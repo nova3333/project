@@ -9,7 +9,7 @@
     storageBucket: "testproject-e2e7b.appspot.com",
     messagingSenderId: "235711990032",
     appId: "1:235711990032:web:c351938147d72dd6983d95",
-    measurementId: "G-WDMH8VHBE6",
+    measurementId: "G-WDMH8VHBE6"
 	
   };
   // Initialize Firebase
@@ -20,28 +20,27 @@
   var firebaseConfig = {
 //firebase config stuff
   };
-  // Initialize Firebase
- if (!firebase.apps.length) {
-   firebase.initializeApp({});
-}
+
   
 	const auth = firebase.auth();
 	
 var storage = firebase.storage();
-var storageRef = Storage.ref();
+var storageRef = storage.ref();
 
-var listRef = storageRef.child('gs://testproject-e2e7b.appspot.com/Bellevue Project/documents');
-function myfunction(){	
-listRef.listAll().then(function(res) {
-  res.prefixes.forEach(function(folderRef) {
-    // All the prefixes under listRef.
-    // You may call listAll() recursively on them.
+var listRef = storageRef.child('Bellevue Project/documents');
+function myfunction(){
+  listRef.listAll().then(function(res) {
+    res.prefixes.forEach(function(folderRef) {
+      console.log(++count + " folderRef");
+      // All the prefixes under listRef.
+      // You may call listAll() recursively on them.
+    });
+    count = 0;
+    res.items.forEach(function(itemRef) {
+      console.log(++count + " itemRef");
+      // All the items under listRef.
+    });
+  }).catch(function(error) {
+    // Uh-oh, an error occurred!
   });
-  res.items.forEach(function(itemRef) {
-    // All the items under listRef.
-  });
-}).catch(function(error) {
-  // Uh-oh, an error occurred!
-});
-
 }
