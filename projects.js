@@ -9,8 +9,8 @@
     storageBucket: "testproject-e2e7b.appspot.com",
     messagingSenderId: "235711990032",
     appId: "1:235711990032:web:c351938147d72dd6983d95",
-    measurementId: "G-WDMH8VHBE6"
-	storageBucket: 'gs://testproject-e2e7b.appspot.com'
+    measurementId: "G-WDMH8VHBE6",
+	
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
@@ -30,7 +30,7 @@
 var storage = firebase.storage();
 var storageRef = Storage.ref();
 
-var listRef = storageRef.child('gs://testproject-e2e7b.appspot.com/Bellevue Project/documents/);
+var listRef = storageRef.child('gs://testproject-e2e7b.appspot.com/Bellevue Project/documents');
 function myfunction(){	
 listRef.listAll().then(function(res) {
   res.prefixes.forEach(function(folderRef) {
