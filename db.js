@@ -10,7 +10,6 @@
     messagingSenderId: "235711990032",
     appId: "1:235711990032:web:c351938147d72dd6983d95",
     measurementId: "G-WDMH8VHBE6"
-	
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
@@ -20,27 +19,10 @@
   var firebaseConfig = {
 //firebase config stuff
   };
-
+  // Initialize Firebase
+ if (!firebase.apps.length) {
+   firebase.initializeApp({});
+}
   
 	const auth = firebase.auth();
 	
-var storage = firebase.storage();
-var storageRef = storage.ref();
-
-var listRef = storageRef.child('Bellevue Project/documents');
-function myfunction(){
-  listRef.listAll().then(function(res) {
-    res.prefixes.forEach(function(folderRef) {
-      console.log(++count + " folderRef");
-      // All the prefixes under listRef.
-      // You may call listAll() recursively on them.
-    });
-    count = 0;
-    res.items.forEach(function(itemRef) {
-      console.log(itemRef);
-      // All the items under listRef.
-    });
-  }).catch(function(error) {
-    // Uh-oh, an error occurred!
-  });
-}
