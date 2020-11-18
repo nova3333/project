@@ -26,7 +26,7 @@
 	
 var storage = firebase.storage();
 var storageRef = storage.ref();
-
+// var listRef = storageRef.child('Bellevue Project/documents') this should list all files how the fuck DO I LIST THE DIRECTORIES
 var listRef = storageRef.child('Bellevue Project/documents');
 function myfunction(){
   listRef.listAll().then(function(res) {
@@ -37,7 +37,7 @@ function myfunction(){
     });
     count = 0;
     res.items.forEach(function(itemRef) {
-      console.log(itemRef);
+      document.write(itemRef);
       // All the items under listRef.
     });
   }).catch(function(error) {
