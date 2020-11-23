@@ -4,7 +4,7 @@ var storage = firebase.storage();
 var storageRef = storage.ref();
 // var listRef = storageRef.child('Bellevue Project/documents') this should list all files how the fuck DO I LIST THE DIRECTORIES
 var listRef = storageRef.child("Harrowford Project/documents");
-function listAllFiles(){
+function listAllFiles( ){
   listRef.listAll().then(function(res) {
     res.prefixes.forEach(function(folderRef) {
       console.log(++count + " folderRef");
@@ -20,11 +20,21 @@ function listAllFiles(){
 	// var sepString = items.split("/");
 	 // var formattedItems = sepString.pop();
 	//	 document.write(formattedItems);
-	  document.write(items);
-	  document.write("<br>");
+	  document.write(items.name);
+	   document.write("<br>");
+	 
       // All the items under listRef.
     });
   }).catch(function(error) {
     // Uh-oh, an error occurred!
   });
-}
+  
+};
+
+  function trail(){
+	  var documentItemsRef = firebase.storage().ref().child("Harrowford Project/documents");
+	documentItemsRef.listAll().then(function(ret) {
+	ret.items.forEach(function(itemRef) { document.write(itemRef.name);  document.write("<br>");});
+
+});
+  }
