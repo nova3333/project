@@ -30,7 +30,22 @@ body{height:100%;
 }
 
 
+.rightt {
+  
+  position: absolute;
+  top: 160px;
+  left: 5px;
+  
+}
 
+.embed {
+  
+  position: absolute;
+  top: 140px;
+  left: 150px;
+  
+  
+}
 
 .LogOut{
   
