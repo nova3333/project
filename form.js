@@ -1,18 +1,5 @@
 
 	
-	function signUp(){
-		
-		var email = document.getElementById("email");
-		var password = document.getElementById("password");
-		
-		const promise = auth.createUserWithEmailAndPassword(email.value, password.value);
-		promise.catch(e => alert(e.message));
-		
-		alert("Signed Up");
-	}
-	
-	
-	
 	function signIn(){
 		
 		var email = document.getElementById("email");
@@ -48,7 +35,7 @@
 		if(user){
 			
 			var email = user.email;
-			alert("Active User" + email);
+			alert("Active User " + email);
 			window.location.href="home.html";
 			//Take user to a different or home page
 
