@@ -70,3 +70,8 @@ li a:hover {
 .activee {
   background-color: #3333ff;
 }
+
+table,th,td {
+	border: 1px solid black;
+	
+}

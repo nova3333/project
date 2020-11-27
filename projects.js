@@ -4,37 +4,52 @@ var storage = firebase.storage();
 var storageRef = storage.ref();
 // var listRef = storageRef.child('Bellevue Project/documents') this should list all files how the fuck DO I LIST THE DIRECTORIES
 var listRef = storageRef.child("Harrowford Project/documents");
-function listAllFiles( ){
-  listRef.listAll().then(function(res) {
+function listAllProjects(){
+  storageRef.listAll().then(function(res) {
+
+    // PRINTS PROJECT NAMES
+    var tableEle = document.createElement('TABLE');
+    tableEle.setAttribute('id', 'projectTable');
+    tableEle.insertRow(0).insertCell(0).innerHTML = "Projects";
+    var count = 1;
     res.prefixes.forEach(function(folderRef) {
-      console.log(++count + " folderRef");
-      // All the prefixes under listRef.
-      // You may call listAll() recursively on them.
-    });
-    count = 0;
-	
-    res.items.forEach(function(itemRef) {
+         var projectCell = tableEle.insertRow(count).insertCell(0);
+        projectCell.innerHTML = folderRef.name;
+        projectCell.onclick = function () {
+            trail(this.innerHTML);
+        }
 		
-      
-	  var items = itemRef;
-	// var sepString = items.split("/");
-	 // var formattedItems = sepString.pop();
-	//	 document.write(formattedItems);
-	  document.write(items.name);
-	   document.write("<br>");
-	 
-      // All the items under listRef.
     });
-  }).catch(function(error) {
-    // Uh-oh, an error occurred!
-  });
+	document.getElementById('tableContainer').append(tableEle);
+});
   
 };
 
-  function trail(){
-	  var documentItemsRef = firebase.storage().ref().child("Harrowford Project/documents");
+  function trail(projectName){
+	  var documentItemsRef = firebase.storage().ref().child(projectName + "/documents");
 	documentItemsRef.listAll().then(function(ret) {
 	ret.items.forEach(function(itemRef) { document.write(itemRef.name);  document.write("<br>");});
 
 });
+  }
+  
+  
+  function table(){
+	  
+	  var x = document.createElement("TABLE");
+	  x.setAttribute('id', 'theTable');
+	  var row = x.insertRow(0);
+	 row.insertCell(0).innerHTML = "nice words";
+	 row.insertCell(1).innerHTML = "hello"; 
+	
+	  document.getElementById('tableContainer').append(x);
+	  
+	  
+  }
+  
+  function removeTable() {
+	  
+	  document.getElementById('theTable').remove();
+	  
+  
   }
