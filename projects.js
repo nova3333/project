@@ -16,6 +16,7 @@ function listAllProjects(){
          var projectCell = tableEle.insertRow(count).insertCell(0);
         projectCell.innerHTML = folderRef.name;
         projectCell.onclick = function () {
+			
             trail(this.innerHTML);
         }
 		
@@ -25,11 +26,25 @@ function listAllProjects(){
   
 }
 
-  function trail(projectName){
+function trail(projectName) {
+		removeTable("projectTable");
+	   var x = document.createElement("TABLE");
+	  x.setAttribute('id', 'testTable');
+	  var row = x.insertRow(0);
+	 x.insertRow(0).insertCell(0).innerHTML = projectName + " Reports";
+	  var count = 1;
 	  var documentItemsRef = firebase.storage().ref().child(projectName + "/documents");
 	documentItemsRef.listAll().then(function(ret) {
-	ret.items.forEach(function(itemRef) { document.write(itemRef.name);  document.write("<br>");});
-
+	 ret.items.forEach(function(itemRef) {  
+	var reportCell = x.insertRow(count).insertCell(0);
+        reportCell.innerHTML = itemRef.name;
+	 reportCell.onclick = function () {
+			// calls download function
+            download(projectName,this.innerHTML);
+        }
+	
+	});
+  document.getElementById('tableB').append(x);
 });
   }
   
@@ -46,10 +61,29 @@ function listAllProjects(){
 	  
 	  
   }
-  
-  function removeTable() {
+  // removes the table
+  function removeTable(tableName) {
 	  
-	  document.getElementById('theTable').remove();
+	  document.getElementById(tableName).remove();
 	  
   
   }
+  
+  
+  
+  function download(projectName,reportName){
+
+storage.ref(projectName + '/documents/' + reportName).getDownloadURL().then(function (url) {
+    var link = document.createElement("a");
+    if (link.download !== undefined) {
+        link.setAttribute("href", url);
+        link.setAttribute("target", "_blank");
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+})
+	 
+ }
+ 
