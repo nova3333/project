@@ -23,7 +23,7 @@ function listAllProjects(){
 	document.getElementById('tableContainer').append(tableEle);
 });
   
-};
+}
 
   function trail(projectName){
 	  var documentItemsRef = firebase.storage().ref().child(projectName + "/documents");

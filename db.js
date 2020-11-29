@@ -25,4 +25,4 @@
 }
   
 	const auth = firebase.auth();
-	
+
