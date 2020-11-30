@@ -29,7 +29,7 @@ function listAllProjects(){
 function trail(projectName) {
 		removeTable("projectTable");
 	   var x = document.createElement("TABLE");
-	  x.setAttribute('id', 'testTable');
+	  x.setAttribute('id', 'reportTable');
 	  var row = x.insertRow(0);
 	 x.insertRow(0).insertCell(0).innerHTML = projectName + " Reports";
 	  var count = 1;
@@ -87,3 +87,23 @@ storage.ref(projectName + '/documents/' + reportName).getDownloadURL().then(func
 	 
  }
  
+ 
+ function tableSearch() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById('tableB');
+  tr = table.getElementsByTagName("tr");
+
+  for (i = 1; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
