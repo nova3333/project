@@ -86,7 +86,7 @@
   position: absolute;
   top: 150px;
   left: 600px;
-  
+  z-index: -1;
 }
 
 body{height:100%;

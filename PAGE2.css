@@ -4,6 +4,12 @@ ul {
   padding: 0;
   overflow: hidden;
   background-color: #333;
+  
+}
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 li a {
@@ -21,7 +27,7 @@ li {
 
 body{height:100%;
    width:100%;
-   background-image: url("shades-of-grey-mountains-shams.jpg");  
+   background-image: url("1.jpg");  
    background-repeat:no-repeat; 
    background-size:cover; 
       
@@ -50,8 +56,8 @@ body{height:100%;
 .LogOut{
   
   position: absolute;
-  top: 70px;
-  left: 1675px;
+  top: 85px;
+  left: 1700px;
   
 }
 
@@ -75,3 +81,34 @@ table,th,td {
 	border: 1px solid black;
 	
 }
+
+div.sticky {
+	position: -webkit-sticky;
+  position: sticky;
+}
+
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.rectangle {
+  
+  position: absolute;
+  top: -200px;
+  left:-20px;
+  z-index: -1;
+}
+
+.button1 {background-color: #4CAF50;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+
+* { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
