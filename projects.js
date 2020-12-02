@@ -15,6 +15,7 @@ function listAllProjects(){
     res.prefixes.forEach(function(folderRef) {
          var projectCell = tableEle.insertRow(count).insertCell(0);
         projectCell.innerHTML = folderRef.name;
+		
         projectCell.onclick = function () {
 			
             trail(this.innerHTML);
@@ -30,20 +31,45 @@ function trail(projectName) {
 		removeTable("projectTable");
 	   var x = document.createElement("TABLE");
 	  x.setAttribute('id', 'reportTable');
-	  var row = x.insertRow(0);
-	 x.insertRow(0).insertCell(0).innerHTML = projectName + " Reports";
-	  var count = 1;
+	 	var reportCell = x.insertRow(0);
+		var reportCell2 = x.insertRow(0);
+var reportCell3 = x.insertRow(0);
+var reportCell4 = x.insertRow(0);
+	var count  = 0;
+
 	  var documentItemsRef = firebase.storage().ref().child(projectName + "/documents");
 	documentItemsRef.listAll().then(function(ret) {
 	 ret.items.forEach(function(itemRef) {  
-	var reportCell = x.insertRow(count).insertCell(0);
-        reportCell.innerHTML = itemRef.name;
-	 reportCell.onclick = function () {
+	
+  
+
+			
+			var fileRef = storageRef.child(projectName + '/documents/' + itemRef.name);
+		   fileRef.getMetadata().then(function(metadata) {
+  // Metadata now contains the metadata for 'images/forest.jpg'
+  	 reportCell3.insertCell(0).innerHTML =metadata.customMetadata.date_created;
+  		 reportCell4.insertCell(0).innerHTML =metadata.customMetadata.document_name;
+			 reportCell2.insertCell(0).innerHTML =metadata.customMetadata.last_name;
+			  reportCell.insertCell(0).innerHTML =metadata.customMetadata.first_name;
+			  
+			  
+			  
+			  	 reportCell4.onclick = function () {
 			// calls download function
-            download(projectName,this.innerHTML);
-        }
+            download(projectName,itemRef.name);
+        } 	
+		
+
+			  document.getElementById('tableB').append(y);
+		}).catch(function(error) {
+			return "Doesnt work";
+		});  
+
+
 	
 	});
+
+	
   document.getElementById('tableB').append(x);
 });
   }
@@ -107,3 +133,18 @@ storage.ref(projectName + '/documents/' + reportName).getDownloadURL().then(func
     }
   }
 }
+
+
+  
+  function returnMetadata(projectName,reportName) {
+	var fileRef = storageRef.child(projectName + '/documents/' + reportName);
+		   fileRef.getMetadata().then(function(metadata) {
+  // Metadata now contains the metadata for 'images/forest.jpg'
+   metadata.customMetadata.date_created;
+
+}).catch(function(error) {
+  return "Doesnt work";
+});  
+	  
+  }
+  
