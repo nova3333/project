@@ -2,8 +2,6 @@
 	
 var storage = firebase.storage();
 var storageRef = storage.ref();
-// var listRef = storageRef.child('Bellevue Project/documents') this should list all files how the fuck DO I LIST THE DIRECTORIES
-var listRef = storageRef.child("Harrowford Project/documents");
 function listAllProjects(){
   storageRef.listAll().then(function(res) {
 
@@ -29,14 +27,24 @@ function listAllProjects(){
 
 function trail(projectName) {
 		removeTable("projectTable");
-	   var x = document.createElement("TABLE");
-	  x.setAttribute('id', 'reportTable');
-	 	var reportCell = x.insertRow(0);
-		var reportCell2 = x.insertRow(0);
-var reportCell3 = x.insertRow(0);
-var reportCell4 = x.insertRow(0);
-	var count  = 0;
-
+   var x = document.createElement("TABLE");
+        x.setAttribute('id', 'reportTable');
+        var row = x.insertRow(0);
+		var arrayName = [];
+		var count = 0;
+		
+				var cell = row.insertCell(0)
+            cell.innerHTML = "Report Name";
+					var cell = row.insertCell(1)
+            cell.innerHTML = "Date";
+					var cell = row.insertCell(2)
+            cell.innerHTML = "First Name";
+					var cell = row.insertCell(3)
+            cell.innerHTML = "Last Name";
+				var cell = row.insertCell(4)
+            cell.innerHTML = "Accident Occured?";
+				
+				var count = 0;
 	  var documentItemsRef = firebase.storage().ref().child(projectName + "/documents");
 	documentItemsRef.listAll().then(function(ret) {
 	 ret.items.forEach(function(itemRef) {  
@@ -46,30 +54,40 @@ var reportCell4 = x.insertRow(0);
 			
 			var fileRef = storageRef.child(projectName + '/documents/' + itemRef.name);
 		   fileRef.getMetadata().then(function(metadata) {
-  // Metadata now contains the metadata for 'images/forest.jpg'
-  	 reportCell3.insertCell(0).innerHTML =metadata.customMetadata.date_created;
-  		 reportCell4.insertCell(0).innerHTML =metadata.customMetadata.document_name;
-			 reportCell2.insertCell(0).innerHTML =metadata.customMetadata.last_name;
-			  reportCell.insertCell(0).innerHTML =metadata.customMetadata.first_name;
-			  
-			  
-			  
-			  	 reportCell4.onclick = function () {
-			// calls download function
-            download(projectName,itemRef.name);
-        } 	
-		
 
-			  document.getElementById('tableB').append(y);
+					count++;
+			  var newRow = x.insertRow(count);
+          
+                var newCell1 = newRow.insertCell();
+                newCell1.innerHTML = itemRef.name;
+		 
+          
+                var newCell = newRow.insertCell();
+                newCell.innerHTML = metadata.customMetadata.date_created;
+				 var newCell = newRow.insertCell();
+                newCell.innerHTML = metadata.customMetadata.first_name;
+					 var newCell = newRow.insertCell();
+                newCell.innerHTML = metadata.customMetadata.last_name;
+				var newCell = newRow.insertCell();
+				if(metadata.customMetadata.last_name == "false"){
+					newCell.innerHTML = "YES";
+					
+				}
+			 else{
+				newCell.innerHTML = "NO"; 
+				 
+			 }
+			  newCell1.onclick = function () {
+			// calls download function
+            download(projectName,this.innerHTML);
+        }
 		}).catch(function(error) {
 			return "Doesnt work";
 		});  
-
-
-	
 	});
 
-	
+		
+			
   document.getElementById('tableB').append(x);
 });
   }
