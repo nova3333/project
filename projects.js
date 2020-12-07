@@ -1,7 +1,6 @@
-
-	
 var storage = firebase.storage();
 var storageRef = storage.ref();
+var arrayName = [];
 function listAllProjects(){
   storageRef.listAll().then(function(res) {
 
@@ -30,19 +29,27 @@ function trail(projectName) {
    var x = document.createElement("TABLE");
         x.setAttribute('id', 'reportTable');
         var row = x.insertRow(0);
-		var arrayName = [];
+		
 		var count = 0;
 		
-				var cell = row.insertCell(0)
-            cell.innerHTML = "Report Name";
-					var cell = row.insertCell(1)
-            cell.innerHTML = "Date";
-					var cell = row.insertCell(2)
-            cell.innerHTML = "First Name";
-					var cell = row.insertCell(3)
-            cell.innerHTML = "Last Name";
-				var cell = row.insertCell(4)
-            cell.innerHTML = "Accident Occured?";
+			var cell1 = row.insertCell(0)
+    cell1.innerHTML = "Report Name";
+
+    var cell2 = row.insertCell(1)
+    cell2.innerHTML = "Date";
+    cell2.onclick = function() {
+        console.log(cell2);
+        arrayName.sort(StorageItem.compareDateAsc);
+    };
+
+    var cell3 = row.insertCell(2)
+    cell3.innerHTML = "First Name";
+
+    var cell4 = row.insertCell(3)
+    cell4.innerHTML = "Last Name";
+
+    var cell5 = row.insertCell(4)
+    cell5.innerHTML = "Accident Occured?";
 				
 				var count = 0;
 	  var documentItemsRef = firebase.storage().ref().child(projectName + "/documents");
@@ -50,11 +57,13 @@ function trail(projectName) {
 	 ret.items.forEach(function(itemRef) {  
 	
   
-
+	
 			
-			var fileRef = storageRef.child(projectName + '/documents/' + itemRef.name);
-		   fileRef.getMetadata().then(function(metadata) {
-
+		
+		   itemRef.getMetadata().then(function(metadata) {
+	console.log(itemRef.name);
+				var instance = new StorageItem(itemRef, metadata.customMetadata.document_name, new Date(metadata.customMetadata.date_created), new Date(metadata.customMetadata.date_of_content), metadata.customMetadata.last_name, metadata.customMetadata.first_name, metadata.customMetadata.accident_happened);
+				arrayName.push(instance);
 					count++;
 			  var newRow = x.insertRow(count);
           
@@ -69,7 +78,7 @@ function trail(projectName) {
 					 var newCell = newRow.insertCell();
                 newCell.innerHTML = metadata.customMetadata.last_name;
 				var newCell = newRow.insertCell();
-				if(metadata.customMetadata.last_name == "false"){
+				if(metadata.customMetadata.accident_happened == "false"){
 					newCell.innerHTML = "YES";
 					
 				}
@@ -81,6 +90,7 @@ function trail(projectName) {
 			// calls download function
             download(projectName,this.innerHTML);
         }
+		
 		}).catch(function(error) {
 			return "Doesnt work";
 		});  
@@ -91,6 +101,7 @@ function trail(projectName) {
   document.getElementById('tableB').append(x);
 });
   }
+  
   
   
   function table(){
@@ -166,3 +177,51 @@ storage.ref(projectName + '/documents/' + reportName).getDownloadURL().then(func
 	  
   }
   
+  class StorageItem {
+   
+    
+    // Reference, String, Date, Date, String, String, Bool
+    constructor(itemRef, documentName, dateCreated, dateOfContent, lastName, firstName, accidentHappened) {
+        this.itemRef = itemRef;
+        this.documentName = documentName;
+        this.dateCreated = dateCreated;
+        this.dateOfContent = dateOfContent;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.accidentHappened = accidentHappened;
+    }
+  
+
+
+   compareDateAsc(compareVal){
+        return dates.compare(this.dateOfContent, compareVal);
+    }
+
+     compareDateDesc(compareVal) {
+        if(this.dateOfContent > compareVal) {
+            return -1;
+        }
+        else if(this.dateOfContent < compareVal) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    } 
+
+     compareLastNameAsc(compareVal) {
+        return this.lastName.compareTo(compareVal);
+    }
+
+   compareLastNameDesc(compareVal) {
+        if(this.dateOfContent > compareVal) {
+            return -1;
+        }
+        else if(this.dateOfContent < compareVal) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+}
