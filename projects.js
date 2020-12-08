@@ -26,83 +26,6 @@ function listAllProjects(){
   
 }
 
-function trail(projectName) {
-		removeTable("projectTable");
-   var x = document.createElement("TABLE");
-        x.setAttribute('id', 'reportTable');
-        var row = x.insertRow(0);
-		
-		var count = 0;
-		
-			var cell1 = row.insertCell(0)
-    cell1.innerHTML = "Report Name";
-
-    var cell2 = row.insertCell(1)
-    cell2.innerHTML = "Date";
-    cell2.onclick = function() {
-        console.log(cell2);
-        reportList.sort(StorageItem.compareDateAsc);
-    };
-
-    var cell3 = row.insertCell(2)
-    cell3.innerHTML = "First Name";
-
-    var cell4 = row.insertCell(3)
-    cell4.innerHTML = "Last Name";
-
-    var cell5 = row.insertCell(4)
-    cell5.innerHTML = "Accident Occured?";
-				
-				var count = 0;
-	  var documentItemsRef = firebase.storage().ref().child(projectName + "/documents");
-	documentItemsRef.listAll().then(function(ret) {
-	 ret.items.forEach(function(itemRef) {  
-	
-  
-	
-			
-		
-		   itemRef.getMetadata().then(function(metadata) {
-	console.log(itemRef.name);
-				var instance = new StorageItem(itemRef, metadata.customMetadata.document_name, new Date(metadata.customMetadata.date_created), new Date(metadata.customMetadata.date_of_content), metadata.customMetadata.last_name, metadata.customMetadata.first_name, metadata.customMetadata.accident_happened);
-				reportList.push(instance);
-					count++;
-			  var newRow = x.insertRow(count);
-          
-                var newCell1 = newRow.insertCell();
-                newCell1.innerHTML = itemRef.name;
-		 
-          
-                var newCell = newRow.insertCell();
-                newCell.innerHTML = metadata.customMetadata.date_created;
-				 var newCell = newRow.insertCell();
-                newCell.innerHTML = metadata.customMetadata.first_name;
-					 var newCell = newRow.insertCell();
-                newCell.innerHTML = metadata.customMetadata.last_name;
-				var newCell = newRow.insertCell();
-				if(metadata.customMetadata.accident_happened == "false"){
-					newCell.innerHTML = "YES";
-					
-				}
-			 else{
-				newCell.innerHTML = "NO"; 
-				 
-			 }
-			  newCell1.onclick = function () {
-			// calls download function
-            download(projectName,this.innerHTML);
-        }
-		
-		}).catch(function(error) {
-			return "Doesnt work";
-		});  
-	});
-
-		
-			
-  document.getElementById('reportTableContainer').append(x);
-});
-  }
   
   
   
@@ -150,26 +73,6 @@ storage.ref(projectName + '/documents/' + reportName).getDownloadURL().then(func
 	 
  }
  
- 
- function tableSearch() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById('tableB');
-  tr = table.getElementsByTagName("tr");
-
-  for (i = 1; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
 
 
   
@@ -335,10 +238,7 @@ function loadTable(projectName) {
 	
 	var dateCreatedHeader = headerRow.insertCell();
 	dateCreatedHeader.innerHTML = "Date";
-	dateCreatedHeader.onclick = function() {
-		reportList.sort(StorageItem.compareDateAsc);
-		addContentToTable();
-	}
+
 	
 	var firstNameHeader = headerRow.insertCell();
 	firstNameHeader.innerHTML = "First Name";
@@ -355,4 +255,8 @@ function loadTable(projectName) {
 function verifyCount(position, end) {
 	console.log("current: " + position + " end: " + end);
     return position === end;
+}
+function createProject(projectName){
+
+
 }

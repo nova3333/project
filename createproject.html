@@ -36,13 +36,27 @@
 
 <div class="rightt">
 Please Enter the Project Name: 
-  <input type="text" id="projectName"=>  </input>
+  <input type="text" id="projectName">  
 <button onclick="submitN()">Submit</button>
 <p id="pname"></p>   
 <script type="text/javascript">
 function submitN(){
-    var setName = document.getElementById("projectName").value;
-    document.write("projectName").innerHTML = setName;
+	var projectNameVal = document.getElementById('projectName').value;
+	 if (projectNameVal.length < 6)
+      { 
+         alert("Please Enter a project name more than 6 characters.");  	
+		 console.log(projectNameVal);
+        
+      }  	
+	  else{
+	    var projectRef = firebase.storage().ref().child(projectNameVal + "/anchor.txt");
+		projectRef.put(new File(['anchor'], 'anchor.txt')).then(function(snapshot) {
+    console.log("Project anchor inserted.");
+		});
+	    alert("Project " + projectNameVal + " has beeen inserted.");  
+		document.getElementById('projectName').value = "";
+	  }
+		
 }
 </script>
 
