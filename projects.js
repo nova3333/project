@@ -12,10 +12,10 @@ function listAllProjects(){
     res.prefixes.forEach(function(folderRef) {
          var projectCell = tableEle.insertRow(count).insertCell(0);
         projectCell.innerHTML = folderRef.name;
-		
+		 
         projectCell.onclick = function () {
 			
-            trail(this.innerHTML);
+            trail2(this.innerHTML);
         }
 		
     });
@@ -23,6 +23,10 @@ function listAllProjects(){
 });
   
 }
+function subFolder(projectName){
+	
+}
+
 
 function trail(projectName) {
 		removeTable("projectTable");
@@ -104,17 +108,63 @@ function trail(projectName) {
   
   
   
-  function table(){
-	  
-	  var x = document.createElement("TABLE");
-	  x.setAttribute('id', 'theTable');
-	  var row = x.insertRow(0);
-	 row.insertCell(0).innerHTML = "nice words";
-	 row.insertCell(1).innerHTML = "hello"; 
+function trail2(projectName) {
+		removeTable("projectTable");
+   var x = document.createElement("TABLE");
+        x.setAttribute('id', 'reportTable');
+        var row = x.insertRow(0);
+		var arrayName = [];
+		var count = 0;
+		
+				var cell = row.insertCell(0)
+            cell.innerHTML = "Photo Name";
+					var cell = row.insertCell(1)
+            cell.innerHTML = "Date";
+		
+					var cell = row.insertCell(2)
+            cell.innerHTML = "First Name";
+					var cell = row.insertCell(3)
+            cell.innerHTML = "Last Name";
+		
+				var count = 0;
+	  var documentItemsRef = firebase.storage().ref().child(projectName + "/photos");
+	documentItemsRef.listAll().then(function(ret) {
+	 ret.items.forEach(function(itemRef) {  
 	
-	  document.getElementById('tableContainer').append(x);
-	  
-	  
+  
+
+			
+			var fileRef = storageRef.child(projectName + '/photos/' + itemRef.name);
+		   fileRef.getMetadata().then(function(metadata) {
+
+					count++;
+			  var newRow = x.insertRow(count);
+          
+            
+		 
+          
+                var newCell1 = newRow.insertCell();
+                newCell1.innerHTML = metadata.customMetadata.photo_name;
+				var newCell = newRow.insertCell();
+				       newCell.innerHTML = metadata.customMetadata.date_uploaded;
+				 var newCell = newRow.insertCell();
+                newCell.innerHTML = metadata.customMetadata.taken_by_first;
+					 var newCell = newRow.insertCell();
+                newCell.innerHTML = metadata.customMetadata.taken_by_last;
+				
+			  newCell1.onclick = function () {
+			// calls download function
+            pictureDownload(projectName,this.innerHTML);
+        }
+		}).catch(function(error) {
+			return "Doesnt work";
+		});  
+	});
+
+		
+			
+  document.getElementById('tableB').append(x);
+});
   }
   // removes the table
   function removeTable(tableName) {
@@ -141,7 +191,25 @@ storage.ref(projectName + '/documents/' + reportName).getDownloadURL().then(func
 })
 	 
  }
- 
+   function pictureDownload(projectName,reportName){
+
+storage.ref(projectName + '/photos/' + reportName).getDownloadURL().then(function (url) {
+	window.open(url);
+    var link = document.createElement("a");
+    if (link.pictureDownload !== undefined) {
+        link.setAttribute("href", url);
+        link.setAttribute("target", "_blank");
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+		
+    }
+	
+	
+})
+	 
+ }
  
  function tableSearch() {
   var input, filter, table, tr, td, i, txtValue;
