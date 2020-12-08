@@ -7,15 +7,37 @@ function listAllProjects(){
     // PRINTS PROJECT NAMES
     var tableEle = document.createElement('TABLE');
     tableEle.setAttribute('id', 'projectTable');
-    tableEle.insertRow(0).insertCell(0).innerHTML = "Projects";
-    var count = 1;
+    var row = tableEle.insertRow(0);
+		
+		var count = 0;
+		
+			var cell = row.insertCell(0)
+    cell.innerHTML = "Report Name";
+	  var cell3 = row.insertCell(1)
+    cell3.innerHTML = "Click Below to Enter Project Reports";
+	  var cell4 = row.insertCell(2)
+    cell4.innerHTML = "Click Below to Enter Project Pictures";
     res.prefixes.forEach(function(folderRef) {
-         var projectCell = tableEle.insertRow(count).insertCell(0);
-        projectCell.innerHTML = folderRef.name;
+			count++;
+			  var newRow = tableEle.insertRow(count);
+          
+            
 		 
-        projectCell.onclick = function () {
+          
+                var newCell1 = newRow.insertCell();
+                newCell1.innerHTML = folderRef.name;
+				var newCell2 = newRow.insertCell();
+				       newCell2.innerHTML = "Click Me To View Reports";
+					   var newCell3 = newRow.insertCell();
+				       newCell3.innerHTML = "Click Me To view Photos";
+		 
+		  newCell2.onclick = function () {
 			
-            trail2(this.innerHTML);
+            trail(folderRef.name);
+        }
+        newCell3.onclick = function () {
+			
+            trail2(folderRef.name);
         }
 		
     });
