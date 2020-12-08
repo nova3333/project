@@ -14,7 +14,7 @@
 </head>
 
 
-<body style="background-color:#bfbfbf;" onload="listAllProjects()">
+<body style="background-color:#bfbfbf;">
 <div class="right">
 <img src="title.png" alt="alternatetext" style="width:350px;height:80px;">
 
@@ -25,7 +25,7 @@
   <li><a class="active" href="home.html">Projects</a></li>
   <li><a href="createproject.html">Create Project</a></li>
   <li><a href="AddUsers.html">Add User</a></li>
-  <li style="float:right"><a class="activee" href="#about">Help</a></li>
+<li style="float:right"><a class="activee"onclick="openHelp()" id="openHelp">Help</a></li>
 <li style="float:right"><a class="activee"onclick="signOut()" id="signOut">Sign Out</a></li>
 </ul>
 </div>
@@ -34,13 +34,14 @@
 </div>
 
 <div class="rightt">
-
+<body onload="listAllProjects()">
 
 
 
 	
 		<div id ="tableContainer"/>
-		<div id ="reportTableContainer"/>
+		<div id ="subContainer"/>
+		<div id ="tableB"/>
 		
 </body>
 </html>

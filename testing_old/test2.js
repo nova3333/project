@@ -3,17 +3,18 @@ var storage = firebase.storage();
 var storageRef = storage.ref(); 
 
  function table(){
-	document.write(myFunction());
-		
+	  
+	  var x = document.createElement("TABLE");
+	  x.setAttribute('id', 'theTable');
+	  var row = x.insertRow(0);
+	 var row2 = x.insertRow(0);
+	 row.insertCell(0).innerHTML = "nice words";
+	   x.insertRow(1).insertCell(0).innerHTML = "nice fewfw";
+
+		document.getElementById('tableContainer').append(x);
+	row2.insertCell(0).innerHTML = "h8b";
+			   x.insertRow(0).insertCell(0).innerHTML = "3333 fewfw";
  }
-  
-  
-    function removeTable() {
-	  
-	  document.getElementById('theTable').remove();
-	  
-  
-  }
 	
   function table2(){
 	    var x = document.createElement("TABLE");
