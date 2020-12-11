@@ -35,6 +35,18 @@
   
 }
 
+.FirstName {
+  position: absolute;
+  top: 600px;
+  left: 810px;
+}
+
+.LastName {
+  position: absolute;
+  top: 700px;
+  left: 810px;
+}
+
 .PassWord{
   
   position: absolute;
